@@ -8,6 +8,9 @@ class LandingPageView(View):
     def get(self, request):
         bag_counter = 0
         institution_counter = 0
+        fundacje = Institution.objects.filter(type='fundacja')
+        organizacje = Institution.objects.filter(type='organizacja pozarządowa')
+        zbiorki = Institution.objects.filter(type='zbiórka lokalna')
         donations = Donation.objects.all()
         institution_id_list = []
         counter_list = []
@@ -20,7 +23,13 @@ class LandingPageView(View):
                 institution_counter += 1
                 counter_list.append(_)
 
-        return render(request, 'index.html', {'bag_counter': bag_counter, 'institution_counter': institution_counter})
+        return render(request, 'index.html', {
+            'bag_counter': bag_counter,
+            'institution_counter': institution_counter,
+            'fundacje': fundacje,
+            'organizacje': organizacje,
+            'zbiorki': zbiorki,
+                                              })
 
 
 class AddDonationView(View):
