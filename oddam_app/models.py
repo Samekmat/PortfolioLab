@@ -2,9 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 TYPES = (
-    (1, 'fundacja'),
-    (2, 'organizacja pozarządowa'),
-    (3, 'zbiórka lokalna'),
+    ('fundacja', 'fundacja'),
+    ('organizacja pozarządowa', 'organizacja pozarządowa'),
+    ('zbiórka lokalna', 'zbiórka lokalna'),
 )
 
 
@@ -15,8 +15,11 @@ class Category(models.Model):
 class Institution(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
-    type = models.CharField(choices=TYPES, default=1, max_length=128)
+    type = models.CharField(choices=TYPES, default='fundacja', max_length=128)
     categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.type
 
 
 class Donation(models.Model):

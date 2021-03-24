@@ -1,10 +1,26 @@
 from django.shortcuts import render
 from django.views import View
 
+from .models import Donation, Institution
+
 
 class LandingPageView(View):
     def get(self, request):
-        return render(request, 'index.html')
+        bag_counter = 0
+        institution_counter = 0
+        donations = Donation.objects.all()
+        institution_id_list = []
+        counter_list = []
+        for donation in donations:
+            bag_counter += donation.quantity
+            if donation.institution_id:
+                institution_id_list.append(donation.institution_id)
+        for _ in institution_id_list:
+            if _ not in counter_list:
+                institution_counter += 1
+                counter_list.append(_)
+
+        return render(request, 'index.html', {'bag_counter': bag_counter, 'institution_counter': institution_counter})
 
 
 class AddDonationView(View):
