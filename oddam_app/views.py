@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
-from .models import Donation, Institution
+from .models import Donation, Institution, CustomUser
 
 
 class LandingPageView(View):
@@ -45,3 +45,13 @@ class LoginView(View):
 class RegisterView(View):
     def get(self, request):
         return render(request, 'register.html')
+
+    def post(self, request):
+        CustomUser.objects.create_user(
+            first_name=request.POST.get('name'),
+            last_name=request.POST.get('surname'),
+            email=request.POST.get('email'),
+            password=request.POST.get('password'),
+            password2=request.POST.get('password2'),
+        )
+        return redirect('login')
