@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .models import Donation, Institution, CustomUser
+from .models import Donation, Institution, CustomUser, Category
 
 
 class LandingPageView(View):
@@ -67,7 +67,11 @@ class RegisterView(View):
 
 class FormView(View):
     def get(self, request):
-        return render(request, 'form.html')
+        if request.user.is_authenticated:
+            categories = Category.objects.all()
+            return render(request, 'form.html', {'categories': categories})
+        else:
+            return redirect('login')
 
 
 class LogoutView(View):
