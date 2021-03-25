@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h2>User profile</h2>
-    <ul>
-        <li>Imię: {{ current_user.first_name }}</li>
-        <li>Nazwisko: {{ current_user.last_name }}</li>
-        <li>Email: {{ current_user.email }}</li>
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="justify-content: center; background-color: silver">
+    <h2 style="color: crimson"><b>User profile</b></h2>
+        <h2>Imię: {{ current_user.first_name }}</h2>
+        <h2>Nazwisko: {{ current_user.last_name }}</h2>
+        <h2>Email: {{ current_user.email }}</h2>
+</div>
+{% endblock %}
