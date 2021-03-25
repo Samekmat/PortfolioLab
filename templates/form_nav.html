@@ -7,7 +7,7 @@
                 Witaj Agata
               {% endif %}
             <ul class="dropdown">
-              <li><a href="#">Profil</a></li>
+              <li><a href="{% url 'profile' %}">Profil</a></li>
                 <li><a href="#">Ustawienia</a></li>
               <li><a href="#">Moje zbiórki</a></li>
                 {% if user.is_superuser %}

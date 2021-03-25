@@ -79,3 +79,11 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('landing-page')
+
+
+class ProfileView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            current_user = request.user
+            return render(request, 'profile.html', {'current_user': current_user})
+        return render(request, 'profile.html')
