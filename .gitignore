@@ -224,4 +224,5 @@ local_settings.py
 
 __pycache__/
 *.py[cod]
+
 # End of https://www.gitignore.io/api/python,pycharm
