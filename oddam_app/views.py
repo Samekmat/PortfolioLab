@@ -69,7 +69,8 @@ class FormView(View):
     def get(self, request):
         if request.user.is_authenticated:
             categories = Category.objects.all()
-            return render(request, 'form.html', {'categories': categories})
+            institutions = Institution.objects.all()
+            return render(request, 'form.html', {'categories': categories, 'institutions': institutions})
         else:
             return redirect('login')
 
