@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -41,6 +42,13 @@ class LoginView(View):
     def get(self, request):
         return render(request, 'login.html')
 
+    def post(self, request):
+        user = authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
+        if user:
+            login(request, user)
+            return redirect('/')
+        return redirect('register')
+
 
 class RegisterView(View):
     def get(self, request):
@@ -55,3 +63,14 @@ class RegisterView(View):
             password2=request.POST.get('password2'),
         )
         return redirect('login')
+
+
+class FormView(View):
+    def get(self, request):
+        return render(request, 'form.html')
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('landing-page')
