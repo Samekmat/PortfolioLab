@@ -55,12 +55,18 @@ class RegisterView(View):
         return render(request, 'register.html')
 
     def post(self, request):
-        CustomUser.objects.create_user(
-            first_name=request.POST.get('name'),
-            last_name=request.POST.get('surname'),
-            email=request.POST.get('email'),
-            password=request.POST.get('password'),
-            password2=request.POST.get('password2'),
+        first_name = request.POST.get('name'),
+        last_name = request.POST.get('surname'),
+        email = request.POST.get('email'),
+        password = request.POST.get('password'),
+        password2 = request.POST.get('password2'),
+        if first_name and last_name and email and password and password2 and password == password2:
+            CustomUser.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                password=password,
+                password2=password2
         )
         return redirect('login')
 
@@ -73,6 +79,34 @@ class FormView(View):
             return render(request, 'form.html', {'categories': categories, 'institutions': institutions})
         else:
             return redirect('login')
+
+    def post(self, request):
+        bags = request.POST["bags"]
+        address = request.POST["address"]
+        phone = int(request.POST["phone"])
+        city = request.POST["city"]
+        postcode = request.POST["postcode"]
+        date = request.POST["date"]
+        time = request.POST["time"]
+        more_info = request.POST["more_info"]
+        institution_id = request.POST["institution_id"]
+        categories_id = request.POST["categories_id"]
+        donation = Donation.objects.create(
+            quantity=bags,
+            address=address,
+            phone_number=phone,
+            city=city,
+            zip_code=postcode,
+            pick_up_date=date,
+            pick_up_time=time,
+            pick_up_comment=more_info,
+            institution_id=institution_id,
+            user=request.user
+        )
+        categories = categories_id.split(',')
+        for category in categories:
+            donation.categories.add(Category.objects.get(pk=int(category)))
+        return render(request, 'form-confirmation.html')
 
 
 class LogoutView(View):
