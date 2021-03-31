@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from oddam_app.views import LandingPageView, AddDonationView, LoginView, RegisterView, FormView, LogoutView,\
-    ProfileView
+    ProfileView, UserDonationsView
 
 
 urlpatterns = [
@@ -29,4 +29,5 @@ urlpatterns = [
     path('form/', FormView.as_view(), name='form'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', ProfileView.as_view(), name='profile'),
+    path('user_donations/', UserDonationsView.as_view(), name='user-donations'),
 ]

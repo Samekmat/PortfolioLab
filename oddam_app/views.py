@@ -55,19 +55,12 @@ class RegisterView(View):
         return render(request, 'register.html')
 
     def post(self, request):
-        first_name = request.POST.get('name'),
-        last_name = request.POST.get('surname'),
-        email = request.POST.get('email'),
-        password = request.POST.get('password'),
-        password2 = request.POST.get('password2'),
-        if first_name and last_name and email and password and password2 and password == password2:
-            CustomUser.objects.create_user(
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                password=password,
-                password2=password2
-        )
+        first_name = request.POST.get('name')
+        last_name = request.POST.get('surname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+        CustomUser.objects.create_user(first_name=first_name, last_name=last_name, email=email, password=password, password2=password2)
         return redirect('login')
 
 
@@ -121,3 +114,10 @@ class ProfileView(View):
             current_user = request.user
             return render(request, 'profile.html', {'current_user': current_user})
         return render(request, 'profile.html')
+
+
+class UserDonationsView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            current_user = request.user
+        return render(request, 'user-donations.html', {'current_user': current_user})

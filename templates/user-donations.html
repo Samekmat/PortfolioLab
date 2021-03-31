@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="justify-content: center; background-color: silver">
+    <h2 style="color: rosybrown"><b>Przekazane dary użytkownika {{ current_user.first_name }}:</b></h2>
+    <ul>
+        {% for donation in current_user.donation_set.all %}
+            <li>Id transakcji: {{ donation.pk }}</li>
+            <li>Ilość worków: {{ donation.quantity }}</li>
+            <li>Dla: {{ donation.institution.name }}</li>
+            <li>Zawartość: {% for category in donation.categories.all %}
+                    {{ category.name }}
+                {% endfor %}
+                </li>
+            <li>Odbiór: {{ donation.pick_up_date }}</li>
+            <li>Godzina odbioru: {{ donation.pick_up_time }}</li>
+            <hr style="color: crimson">
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}
