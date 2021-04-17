@@ -8,7 +8,7 @@
 
 -----
 
-📃 PortfolioLab jest projektem, w którym użytkownik może podarować niepotrzebne przedmioty na rzecz zaufanych instytucji poprzez formularz. Podajemy w nim typ rzeczy, które chcemy oddać wraz z ilością, instytucję jaką wybraliśmy oraz adres i datę odbioru przez kuriera.
+📃 "PortfolioLab" jest projektem, w którym użytkownik może podarować niepotrzebne przedmioty na rzecz zaufanych instytucji poprzez formularz. Podajemy w nim typ rzeczy, które chcemy oddać wraz z ilością, instytucję jaką wybraliśmy oraz adres i datę odbioru przez kuriera.
 
 ⚙️Technologie / narzędzia:
 - Django - funkcjonalność
